@@ -110,6 +110,17 @@ body {
 	gap: 22px;
 	margin-top: 22px;
 }
+.contact-links a {
+	color: #111111;
+	font-weight: 500;
+	text-decoration: none;
+}
+.contact-links a:hover,
+.contact-links a:focus-visible {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
 
 .contact-form {
 	display: grid;
