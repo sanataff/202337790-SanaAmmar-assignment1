@@ -47,6 +47,8 @@ body {
 .role {
 	color: #5f6368;
 	line-height: 1.35;
+        font-weight: 800;
+
 }
 
 .section {
@@ -63,6 +65,7 @@ body {
 .section p {
 	max-width: 600px;
 	color: #5f6368;
+    font-weight: 800;
 }
 
 .section p + p {
