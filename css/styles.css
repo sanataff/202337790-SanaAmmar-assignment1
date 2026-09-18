@@ -102,6 +102,11 @@ body {
 	margin-top: 116px;
 }
 
+.contact-links {
+	display: flex;
+	gap: 22px;
+	margin-top: 22px;
+}
 
 .contact-form {
 	display: grid;
