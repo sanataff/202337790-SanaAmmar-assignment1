@@ -1,0 +1,1 @@
+The project currently is built using pure HTML and css. No incorporation of vanilla js have been made yet. I intend to use React in the future. 
