@@ -1,0 +1,88 @@
+:root {
+	color: #111111;
+	background: #ffffff;
+	font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	min-width: 320px;
+	background: #ffffff;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	background: #ffffff;
+	font-size: 15px;
+	line-height: 1.65;
+}
+
+.portfolio {
+	width: min(100% - 40px, 620px);
+	margin: 0 auto;
+	padding: 108px 0 96px;
+}
+
+.intro h1,
+.section h2,
+.role,
+.section p,
+.projects ul {
+	margin: 0;
+}
+
+.intro h1 {
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 1.35;
+	letter-spacing: -0.01em;
+}
+
+.role {
+	color: #5f6368;
+	line-height: 1.35;
+}
+
+.section {
+	margin-top: 116px;
+}
+
+.section h2 {
+	margin-bottom: 22px;
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 1.35;
+}
+
+.section p {
+	max-width: 600px;
+	color: #5f6368;
+}
+
+.section p + p {
+	margin-top: 13px;
+}
+
+.projects {
+	margin-top: 114px;
+}
+
+
+@media (max-width: 680px) {
+	.portfolio {
+		width: min(100% - 40px, 620px);
+		padding-top: 64px;
+	}
+
+	.section,
+	.projects,
+	.contact {
+		margin-top: 84px;
+	}
+}
