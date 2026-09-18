@@ -72,7 +72,31 @@ body {
 .projects {
 	margin-top: 114px;
 }
+.projects ul {
+	padding: 0;
+	list-style: none;
+}
 
+.projects li + li {
+	margin-top: 34px;
+}
+
+.projects a {
+	color: #111111;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.projects a:hover,
+.projects a:focus-visible {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.projects li p {
+	color: #5f6368;
+	line-height: 1.45;
+}
 
 @media (max-width: 680px) {
 	.portfolio {
