@@ -589,31 +589,6 @@
   color: var(--accent);
 }
 
-/* --- Contact: the hairline figure ------------------------------------- */
-.contact-figure {
-  max-width: 560px;
-  margin-top: calc(44px * var(--space, 1));
-}
-
-.contact-figure__frame {
-  display: block;
-  width: 100%;
-  border: 0;
-}
-
-.contact-figure__fallback {
-  padding: 22px 24px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  font-size: 15px;
-  color: var(--muted);
-}
-
-.contact-figure__fallback a {
-  color: var(--ink);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
 
 /* --- Footer ------------------------------------------------------------ */
 .footer {
