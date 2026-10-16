@@ -18,7 +18,7 @@ production build.
 ## What AI helped me with
 
 AI helped me plan how to split the site into components such as `Header`,
-`About`, `Projects`, `Repositories` and `Contact`. It also helped draft the
+`About`, `Projects`, `Stack` and `Contact`. It also helped draft the
 project search, filters and sorting, expandable cards, theme toggle, contact
 form validation, and the hooks used for saved settings and scroll animations.
 

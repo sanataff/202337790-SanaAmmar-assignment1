@@ -9,10 +9,9 @@ Portfolio website — SWE363 Assignment 2 (Interactive Features)
 
 An interactive personal portfolio built as a **React + Vite + TypeScript**
 single-page application. It presents a hero, an about section, a filterable
-project catalogue, a toolkit tab switcher, a live GitHub repository feed and a
-validated contact form, styled as a light, editorial, typography-driven layout
-with a considered motion system and **hand-drawn controls** from the drawably
-library.
+project catalogue, a toolkit tab switcher and a validated contact form, styled
+as a light, editorial, typography-driven layout with a considered motion system
+and **hand-drawn controls** from the drawably library.
 
 **Two hard design constraints:** the interface uses **no gradients and no
 shadows** — depth comes from the sketched controls, thin rules, spacing and hover
@@ -37,21 +36,19 @@ zero-dependency itself.
 
 ```text
 my-project/
-├── index.html                     Vite entry (+ pre-paint theme/layout script)
+├── index.html                     Vite entry (+ pre-paint theme script)
 ├── src/
 │   ├── main.tsx                   React bootstrap
 │   ├── App.tsx                    Page composition
 │   ├── index.css                  Design tokens, animation primitives, layout rules
 │   ├── App.css                    Component styles
 │   ├── data/
-│   │   ├── projects.ts            Project catalogue + types
-│   │   └── layout.ts              Layout options, ranges + defaults
+│   │   └── projects.ts            Project catalogue + types
 │   ├── lib/
 │   │   └── scroll.ts              Smooth scrolling (reduced-motion aware)
 │   ├── hooks/
 │   │   ├── useLocalStorage.ts        Persistence with safe error handling
 │   │   ├── useTheme.ts               Light/dark theme + data-theme attribute
-│   │   ├── useLayout.ts              Layout state + html attributes/vars (panel only)
 │   │   ├── useRevealOnScroll.ts      IntersectionObserver reveal
 │   │   └── usePrefersReducedMotion.ts Tracks the reduced-motion setting
 │   └── components/
@@ -59,12 +56,10 @@ my-project/
 │       ├── About.tsx              Bio + scroll-linked word reveal
 │       ├── Projects.tsx           Search / filter / sort / expand + empty state
 │       ├── Stack.tsx              drawably tab switcher + checked list
-│       ├── Repositories.tsx       GitHub API feed + loading/error/empty states
 │       ├── Contact.tsx            Validated form + animated confirmation
 │       ├── TableFigure.tsx        Frames the Hairline figure (theme, width, height)
 │       ├── Footer.tsx             Giant slide-up name + meta bar
 │       ├── BackToTop.tsx          Floating back-to-top button
-│       ├── LayoutControls.tsx     The floating layout-knob panel (kept, unmounted)
 │       ├── MaskedText.tsx         Line-slide-up heading reveal
 │       ├── Reveal.tsx             Fade / rise / blur-in wrapper
 │       └── WordsReveal.tsx        Scroll-linked word-by-word paragraph
@@ -83,10 +78,10 @@ my-project/
 
 | Assignment requirement | Where it is implemented |
 | ---------------------- | ----------------------- |
-| **Dynamic content** | `Projects.tsx` (live search, category filter, sort, expand), `Stack.tsx` (tabs), `Header.tsx` (time-based greeting, theme toggle), `LayoutControls.tsx` (cards / list, hero, width, spacing — kept but unmounted) |
-| **Data handling** | `localStorage` for the theme (`useLocalStorage`, and the layout while the panel is mounted), the GitHub public API feed (`Repositories.tsx`) and a validated form (`Contact.tsx`) |
+| **Dynamic content** | `Projects.tsx` (live search, category filter, sort, expand), `Stack.tsx` (tabs), `Header.tsx` (time-based greeting, theme toggle) |
+| **Data handling** | `localStorage` for the theme (`useLocalStorage`) and a validated form (`Contact.tsx`) |
 | **Animation / transitions** | Masked line reveals, blur-in scroll reveals, scroll-linked word reveal, staggered rows, hover motion, drawably's boiling sketches, footer name reveal, floating button — all reduced-motion aware |
-| **Error handling / feedback** | Field-level form errors, API error notice with retry, loading spinner + skeletons, empty states ("No projects found", "No public repositories yet") |
+| **Error handling / feedback** | Field-level form errors, an animated form confirmation, and an empty state ("No projects found") |
 | **A hand-drawn figure** (portfolio craft) | `hairline/table.js` — a Hairline *table for two* in the contact section; the chair under the pointer draws up to the table and the read-out names it, framed by `TableFigure.tsx` |
 
 ## 5. State and Data Flow
@@ -99,12 +94,6 @@ my-project/
 - **Expansion.** A `Set<string>` of expanded ids drives the animated detail panel.
 - **Theme.** `useTheme` stores `'light' | 'dark'` via `useLocalStorage` and
   writes `<html data-theme>`, which all colour tokens react to.
-- **Layout.** The four layout values are fixed: `index.html` sets `data-columns`,
-  `data-hero`, `--content-max` and `--space` on `<html>` ahead of the first paint,
-  and the CSS reacts to them; no component reads the values directly. The panel
-  that used to change them (`useLayout` + `LayoutControls.tsx`) stores a choice in
-  `localStorage` when it is mounted, which it currently is not.
-
 
 ## 6. Data Handling Details
 
@@ -112,9 +101,8 @@ my-project/
 Reads and writes are wrapped in `try/catch` with a safe fallback, so
 private-browsing or a disabled store degrades gracefully. The theme uses the key
 `portfolio-theme`, and a small inline script in `index.html` applies it before
-first paint to avoid a flash of the wrong colours; the first visit follows
-
-
+first paint to avoid a flash of the wrong colours; the first visit follows the
+system preference.
 
 
 ### Form validation (`Contact.tsx`)
@@ -171,8 +159,8 @@ change.
 | Line-slide-up reveal | section headings, hero, contact title | `MaskedText` (`overflow:hidden` + `translateY(110%)`) |
 | Fade / rise / blur-in | about intro, contact intro | `Reveal` + `.reveal` |
 | Scroll-linked word reveal | about paragraphs | `WordsReveal` writes `opacity` in a `requestAnimationFrame` loop |
-| Staggered rise | project rows, repo rows, stack items | CSS keyframes with per-item `animation-delay` |
-| Row hover | work / repo rows | background tint + title `translateX(4px)` + arrow fade-in |
+| Staggered rise | project rows, stack items | CSS keyframes with per-item `animation-delay` |
+| Row hover | project rows | background tint + title `translateX(4px)` + arrow fade-in |
 | Sketch boil / re-sketch | every drawably control | library CSS frame counter + a seeded redraw on hover |
 | Letter reveal | footer name | per-letter `translateY(110%)` with 40 ms stagger |
 | Back-to-top | floating button | opacity + `translateY` with `ease-out` |
@@ -202,7 +190,6 @@ disables animations and shows all content immediately, and
 - Single page, no routing; filtering runs in memory via `useMemo`.
 - Animations are GPU-friendly (`opacity` / `transform`); the word reveal is
   `requestAnimationFrame`-throttled.
-- The GitHub request is a single small JSON call, aborted on unmount.
 - The contact figure is a separate static page, lazy-loaded in a sandboxed frame,
   so it costs nothing until the section is scrolled into view.
 
@@ -216,7 +203,7 @@ npm run preview  # serve the production build
 npm run lint     # ESLint
 ```
 
-Requires Node.js 18+ (developed on Node 22).
+Requires Node.js 20.19+ or 22.12+ (the Vite 8 requirement).
 
 ## 12. Known Limitations
 

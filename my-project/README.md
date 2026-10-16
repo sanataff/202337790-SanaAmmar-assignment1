@@ -23,12 +23,7 @@ hand-drawn **drawably** sketches, thin rules, spacing and hover tints.
   whose underline follows the active tab.
 - **Light / dark theme** — remembered in `localStorage`, following your system
   preference on the first visit.
-- **A chosen layout** — the project, repository and toolkit lists are single-column
-  editorial lists with hand-drawn markers in the gutter, and the values behind that
-  live in one place; the panel that was used to choose them is kept in the repo,
-  unmounted.
 - **Time-based greeting** — the hero greets you according to the time of day.
-
 - **Validated contact form** — checks name, email and message, then shows an
   animated confirmation.
 
@@ -42,15 +37,15 @@ so they re-colour with the light/dark theme.
 
 | UI element | drawably component |
 | ---------- | ------------------ |
-| Buttons (hero, clear, details, retry, submit, back-to-top) | `DrawablyButton` |
+| Buttons (hero, clear, details, submit, back-to-top) | `DrawablyButton` |
 | Search / name / email fields, message box, sort dropdown | `DrawablyInput`, `DrawablyTextarea`, `DrawablySelect` |
 | Theme switch | `DrawablyToggle` |
 | Category filter & toolkit switcher | `DrawablyTabs` |
-| Tags, year, language, stars, counts, availability | `DrawablyBadge` |
-| Empty state, notices | `DrawablyCard` |
+| Project tags and year | `DrawablyBadge` |
+| Empty state | `DrawablyCard` |
 | Form success message | `DrawablyAlert` |
 | Rules between sections | `DrawablyDivider` |
-| Project, repository and contact lists | `DrawablyList` |
+| Project and contact lists | `DrawablyList` |
 | Nav and meta links | `DrawablyUnderline` |
 
 
@@ -83,14 +78,12 @@ my-project/
 ├── src/
 │   ├── main.tsx / App.tsx
 │   ├── index.css / App.css
-│   ├── components/   Header, About, Projects, Stack, Repositories,
-│   │                 Contact, Footer, BackToTop, MaskedText, Reveal,
-│   │                 WordsReveal, TableFigure
-│   │                 LayoutControls — the layout panel, kept but unmounted
-│   ├── data/         projects.ts, layout.ts
+│   ├── components/   Header, About, Projects, Stack, Contact, Footer,
+│   │                 BackToTop, MaskedText, Reveal, WordsReveal, TableFigure
+│   ├── data/         projects.ts
 │   ├── lib/scroll.ts Reduced-motion-aware smooth scrolling
-│   └── hooks/        useLocalStorage, useTheme, useLayout (panel only),
-│                     useRevealOnScroll, usePrefersReducedMotion
+│   └── hooks/        useLocalStorage, useTheme, useRevealOnScroll,
+│                     usePrefersReducedMotion
 ├── hairline/         table.js  — the figure's source (Hairline skill)
 │                     hairline-table.html — built page
 │                     hairline-table-*.png — look sheets
@@ -103,7 +96,7 @@ my-project/
 
 ##  Run Locally
 
-Requires **Node.js 18+** and npm.
+Requires **Node.js ^20.19.0 or >=22.12.0** and npm (Vite 8 requirement).
 
 ```bash
 npm install      # install dependencies
