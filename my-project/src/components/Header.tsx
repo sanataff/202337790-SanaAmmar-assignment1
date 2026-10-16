@@ -32,7 +32,7 @@ export default function Header() {
     <header className="intro" id="top">
       <nav className="topbar" aria-label="Primary">
         <a className="topbar__name" href="#top">
-          <em className="serif">S</em>ana Ammar
+         Sana Ammar
         </a>
 
         <ul className="nav-links">
