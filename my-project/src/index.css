@@ -25,11 +25,6 @@
   --ink-bg: var(--ink);
   --on-ink: var(--bg);
 
-  /* Layout knobs — useLayout overrides these on <html>. */
-  --content-max: 1120px;
-  --space: 1;
-  --cols: 1;
-
   --danger: #b42318;
   --success: #067647;
 

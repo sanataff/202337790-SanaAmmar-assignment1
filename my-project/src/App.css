@@ -5,7 +5,7 @@
    ========================================================================== */
 
 .portfolio {
-  width: min(100% - 44px, var(--content-max, 1120px));
+  width: min(100% - 44px, 1120px);
   margin: 0 auto;
   padding-bottom: 48px;
 }
@@ -139,7 +139,7 @@
 
 /* --- Section scaffolding ---------------------------------------------- */
 .section {
-  padding-block: calc(clamp(64px, 9vw, 116px) * var(--space, 1));
+  padding-block: clamp(64px, 9vw, 116px);
 }
 
 .section__head {
@@ -148,7 +148,7 @@
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: calc(42px * var(--space, 1));
+  margin-bottom: 42px;
 }
 
 .section__title {
@@ -292,7 +292,7 @@
 
 /* --- Work list --------------------------------------------------------- */
 .work-row {
-  padding-block: calc(16px * var(--space, 1));
+  padding-block: 16px;
 }
 
 .work-row__top {
@@ -331,8 +331,7 @@
     transform var(--dur) var(--ease);
 }
 
-.work-row:hover .work-row__arrow,
-.repo-row:hover .work-row__arrow {
+.work-row:hover .work-row__arrow {
   opacity: 1;
   transform: none;
   color: var(--accent);
@@ -457,7 +456,7 @@
 .toolkit {
   display: grid;
   grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr);
-  gap: calc(48px * var(--space, 1));
+  gap: 48px;
   align-items: start;
 }
 
@@ -465,7 +464,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
-  margin-bottom: calc(22px * var(--space, 1));
+  margin-bottom: 22px;
 }
 
 .toolkit__panel {
@@ -492,48 +491,6 @@
   }
 }
 
-/* --- Repositories ------------------------------------------------------ */
-.repo-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  column-gap: 24px;
-  row-gap: 4px;
-  padding-block: calc(16px * var(--space, 1));
-}
-
-.repo-row__name {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-}
-
-.repo-row__desc {
-  grid-column: 1 / -1;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.repo-row__meta {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.status-line {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--muted);
-}
-
 /* --- Contact ----------------------------------------------------------- */
 .contact__title {
   font-size: clamp(2.5rem, 7.5vw, 5rem);
@@ -550,7 +507,7 @@
 
 .contact-form {
   display: grid;
-  gap: calc(30px * var(--space, 1));
+  gap: 30px;
   max-width: 620px;
   margin-top: 42px;
 }
@@ -592,7 +549,7 @@
 
 /* --- Footer ------------------------------------------------------------ */
 .footer {
-  margin-top: calc(clamp(96px, 14vw, 180px) * var(--space, 1));
+  margin-top: clamp(96px, 14vw, 180px);
   overflow: hidden;
 }
 
@@ -692,160 +649,6 @@
   transform: translateY(-2px);
 }
 
-/* --- Layout panel (exploration tool) ----------------------------------- */
-.layout-panel {
-  position: fixed;
-  left: 24px;
-  bottom: 24px;
-  z-index: 25;
-  width: 248px;
-}
-
-.layout-panel__card {
-  display: grid;
-  gap: 14px;
-  padding: 14px;
-  /* opaque so the page never shows through; the sketched card is the border */
-  background: var(--bg);
-}
-
-.layout-panel__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.layout-panel__title {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--faint);
-}
-
-.layout-panel__toggle,
-.layout-panel__reset {
-  padding: 3px 10px;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-}
-
-.layout-panel__body {
-  display: grid;
-  gap: 14px;
-}
-
-.layout-panel__reset {
-  justify-self: start;
-}
-
-.knob {
-  display: grid;
-  gap: 7px;
-}
-
-.knob__label {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--faint);
-}
-
-.knob__value {
-  color: var(--muted);
-  text-transform: none;
-  letter-spacing: 0;
-}
-
-.knob-tabs {
-  gap: 14px;
-}
-
-.knob-tabs .tab {
-  font-size: 13px;
-}
-
-.knob-range {
-  width: 100%;
-  margin: 0;
-  accent-color: var(--ink);
-  cursor: pointer;
-}
-
-/* --- Layout options ---------------------------------------------------- */
-/* column count for the project, repository and toolkit lists */
-:root {
-  --cols: 1;
-}
-
-:root[data-columns="2"] {
-  --cols: 2;
-}
-
-:root[data-columns="3"] {
-  --cols: 3;
-}
-
-:is([data-columns="2"], [data-columns="3"]) :is(.work-list, .repo-list, .stack-list) {
-  display: grid;
-  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
-  gap: calc(18px * var(--space, 1));
-  padding-left: 0; /* drop the drawably marker gutter */
-}
-
-:is([data-columns="2"], [data-columns="3"]) :is(.work-list, .repo-list, .stack-list) > li > .drawably-svg {
-  display: none; /* no pen markers inside a grid */
-}
-
-:is([data-columns="2"], [data-columns="3"]) :is(.work-row, .repo-row) {
-  padding: calc(16px * var(--space, 1));
-  border: 1px solid var(--border);
-}
-
-:is([data-columns="2"], [data-columns="3"]) .work-row__top {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
-:is([data-columns="2"], [data-columns="3"]) .work-row__title {
-  flex: 1 1 100%;
-}
-
-:is([data-columns="2"], [data-columns="3"]) .work-row__toggle {
-  margin-left: auto;
-}
-
-[data-columns="2"] .stack-item {
-  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
-}
-
-[data-columns="3"] .stack-item {
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
-}
-
-/* centred hero */
-[data-hero="center"] .hero {
-  align-items: center;
-  text-align: center;
-}
-
-[data-hero="center"] .hero__actions {
-  justify-content: center;
-}
-
-[data-hero="center"] .hero__lede {
-  margin-inline: auto;
-}
-
 /* --- Responsive -------------------------------------------------------- */
 @media (hover: none) {
   .work-row__arrow {
@@ -866,7 +669,7 @@
   /* the toolkit title and its list stack on narrower screens */
   .toolkit {
     grid-template-columns: minmax(0, 1fr);
-    gap: calc(26px * var(--space, 1));
+    gap: 26px;
   }
 
   .toolkit .section__head {
@@ -879,12 +682,7 @@
 
 @media (max-width: 680px) {
   .portfolio {
-    width: min(100% - 32px, var(--content-max, 1120px));
-  }
-
-  /* there is no room for a multi-column grid on a phone */
-  :is([data-columns="2"], [data-columns="3"]) :is(.work-list, .repo-list, .stack-list) {
-    grid-template-columns: minmax(0, 1fr);
+    width: min(100% - 32px, 1120px);
   }
 
   .nav-links {
@@ -910,11 +708,5 @@
   .back-to-top {
     right: 16px;
     bottom: 16px;
-  }
-
-  .layout-panel {
-    left: 16px;
-    bottom: 16px;
-    width: min(240px, calc(100vw - 32px));
   }
 }
