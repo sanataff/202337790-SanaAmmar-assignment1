@@ -1,0 +1,295 @@
+/* ==========================================================================
+   Base layer — design tokens, theming, resets and animation primitives.
+   A typography-driven, near-black-on-white editorial layout: black ink on
+   white paper, with the theme toggle providing the dark mode.
+   No gradients and no shadows anywhere in this project.
+   ========================================================================== */
+
+/* --- Tokens ------------------------------------------------------------ */
+:root {
+  --bg: #ffffff;
+  --ink: #0b0b0b;
+  /* accent is a token so anything accented simply follows the ink */
+  --accent: var(--ink);
+  --on-accent: var(--bg);
+
+  /* everything else is derived from the ink */
+  --text: var(--ink);
+  --muted: color-mix(in srgb, var(--ink) 58%, transparent);
+  --faint: color-mix(in srgb, var(--ink) 42%, transparent);
+
+  --border: color-mix(in srgb, var(--ink) 12%, transparent);
+  --border-strong: color-mix(in srgb, var(--ink) 24%, transparent);
+  --surface: color-mix(in srgb, var(--ink) 4%, transparent);
+
+  --ink-bg: var(--ink);
+  --on-ink: var(--bg);
+
+  /* Layout knobs — useLayout overrides these on <html>. */
+  --content-max: 1120px;
+  --space: 1;
+  --cols: 1;
+
+  --danger: #b42318;
+  --success: #067647;
+
+  /* Motion tokens — see the easing blueprint in the animation skill. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --dur-fast: 150ms;
+  --dur: 250ms;
+  --dur-slow: 500ms;
+  --dur-reveal: 800ms;
+
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  /* Map drawably's pen colours onto the tokens so every sketch re-themes. */
+  --drawably-stroke: var(--ink);
+  --drawably-fill: var(--ink);
+  --drawably-paper: var(--bg);
+  --drawably-error: var(--danger);
+  --drawably-success: var(--success);
+
+  color-scheme: light;
+  font-family: var(--sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --ink: #f5f5f5;
+  --danger: #fda29b;
+  --success: #75e0a7;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 32px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--ink);
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* drawably controls draw their own sketched focus ring, so drop the outline. */
+.drawably-host:focus-visible,
+.drawably-host :is(input, textarea, select):focus-visible {
+  outline: none;
+}
+
+/* ==========================================================================
+   Animation primitives
+   ========================================================================== */
+
+/* Fade / rise / blur-in — used for blocks that enter the viewport. */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(6px);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out),
+    filter var(--dur-slow) var(--ease-out);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Line-by-line mask reveal — headings slide up out of an overflow clip. */
+.mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.mask__inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform var(--dur-reveal) var(--ease-out);
+}
+
+.mask__inner.is-visible {
+  transform: none;
+}
+
+/* Word-by-word reveal driven by scroll position. */
+.word {
+  display: inline;
+  opacity: 0.14;
+  transition: opacity 220ms var(--ease);
+}
+
+/* Small pulsing "available" dot. */
+.pulse {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s var(--ease-in-out) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+}
+
+/* Blinking caret used in the hero. */
+.caret {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.92em;
+  margin-left: 0.06em;
+  background: currentColor;
+  vertical-align: -0.06em;
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%,
+  62% {
+    opacity: 1;
+  }
+  63%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.spinner {
+  display: inline-block;
+  width: 0.85em;
+  height: 0.85em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Skeleton placeholder — a solid pulsing block (no gradient). */
+.skeleton {
+  background: var(--surface);
+  animation: skeleton-pulse 1.4s var(--ease-in-out) infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion — disable everything, show content immediately.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .reveal,
+  .word {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .mask__inner {
+    transform: none;
+  }
+}
