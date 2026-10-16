@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" data-columns="1" data-hero="left">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Portfolio of Sana Ammar — designer, researcher, and software builder. Selected projects, GitHub activity, and contact."
+    />
+    <title>Sana Ammar | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      /*
+       * Set the theme before the first paint, so a dark-mode visit never flashes
+       * white. Must use the same storage key as src/hooks/useTheme.ts.
+       *
+       * The page layout is not set here — it is fixed to two columns on the
+       * <html> element above (the values live in src/data/layout.ts), so there
+       * is nothing to read from storage and nothing to pop in.
+       */
+      (function () {
+        try {
+          var saved = localStorage.getItem('portfolio-theme');
+          var theme =
+            saved === '"dark"' || saved === 'dark'
+              ? 'dark'
+              : saved === '"light"' || saved === 'light'
+                ? 'light'
+                : matchMedia('(prefers-color-scheme: dark)').matches
+                  ? 'dark'
+                  : 'light';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (error) {
+          /* Storage blocked — the page starts in the default light theme. */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
